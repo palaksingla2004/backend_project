@@ -15,8 +15,10 @@ const LoginSignup = () => {
     await fetch('http://localhost:4000/login', {
       method: 'POST',
       headers: {
-        Accept:'application/form-data',
-        'Content-Type':'application/json',
+        Accept: 'application/json', // Changed to 'application/json'
+        'Content-Type': 'application/json',
+        // Accept:'application/form-data',
+        // 'Content-Type':'application/json',
       },
       body: JSON.stringify(formData),
     })
@@ -38,8 +40,10 @@ const LoginSignup = () => {
     await fetch('http://localhost:4000/signup', {
       method: 'POST',
       headers: {
-        Accept:'application/form-data',
-        'Content-Type':'application/json',
+        Accept: 'application/json', // Changed to 'application/json'
+        'Content-Type': 'application/json',
+        // Accept:'application/form-data',
+        // 'Content-Type':'application/json',
       },
       body: JSON.stringify(formData),
     })
