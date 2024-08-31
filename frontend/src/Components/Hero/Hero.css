@@ -1,17 +1,18 @@
 .hero{
     min-height: 90vh;
-    background:  linear-gradient(180deg, #fde1ff, #e1ffea22 60%);
+    background:  linear-gradient(180deg, #2b2a2c90, #e1ffea22 60%);
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 10px 9%;
+    font-size: 75px;
 }
 .hero-left{
     line-height: 1.1;
 }
 .hero-left h2{
     color: #090909;
-    font-size: 18px;
+    font-size: 50px;
 }
 
 .hero-left p{
@@ -36,7 +37,7 @@
     height: 50px;
     border-radius: 75px;
     margin-top: 20px;
-    background: #ff4141;
+    background: #000000;
     color: white;
     font-size: 15px;
     font-weight: 500;
