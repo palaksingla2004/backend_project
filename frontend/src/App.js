@@ -5,9 +5,9 @@ import Cart from "./Pages/Cart";
 import Product from "./Pages/Product";
 import Footer from "./Components/Footer/Footer";
 import ShopCategory from "./Pages/ShopCategory";
-import women_banner from "./Components/Assets/banner_women.png";
-import men_banner from "./Components/Assets/banner_mens.png";
-import kid_banner from "./Components/Assets/banner_kids.png";
+import women_banner from "./Components/Assets/women2.jpeg";
+import men_banner from "./Components/Assets/men.jpeg";
+import kid_banner from "./Components/Assets/kids.jpeg";
 import LoginSignup from "./Pages/LoginSignup";
 
 export const backend_url = 'http://localhost:3000';
