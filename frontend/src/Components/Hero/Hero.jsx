@@ -1,7 +1,7 @@
 import React from "react";
 import "./Hero.css";
 import hero_image from "../Assets/hi.webp";
-import hand_icon from "../Assets/hand_icon.png";
+
 import arrow_icon from "../Assets/arrow.png";
 
 const Hero = () => {

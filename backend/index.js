@@ -27,7 +27,6 @@ mongoose.connect("mongodb://localhost:27017/ecommercelogin")
   .catch(err => console.error('MongoDB connection error:', err));
 
 
-
 app.post('/login', async (req, res) => {
     console.log("Login");
     let success = false;
