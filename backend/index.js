@@ -12,12 +12,8 @@ app.use(cors());
 
 const Users = require('./usermodels'); // Adjust the path according to your file structure
 
-
-
-// Serve static files from the React app
 app.use(express.static(path.join(__dirname, '../frontend/build')));
 
-// Catch all requests and serve the frontend's index.html file
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend/build', 'index.html'));
 });
@@ -54,7 +50,7 @@ app.post('/login', async (req, res) => {
   })
   
   
-  //Create an endpoint at ip/auth for regestring the user & sending auth-token
+  //it is for the user when not signed up n basically creates an endpoint at ip/auth for regestring the user & sending auth-token
   app.post('/signup', async (req, res) => {
     console.log("Sign Up");
     let success = false;
