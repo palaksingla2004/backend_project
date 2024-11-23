@@ -10,11 +10,14 @@ import men_banner from "./Components/Assets/men.jpeg";
 import kid_banner from "./Components/Assets/kids.jpeg";
 import LoginSignup from "./Pages/LoginSignup";
 
-export const backend_url = 'http://localhost:3000';
+
+
+
+
+export const backend_url = 'http://localhost:4000'; // Ensure the correct backend URL
 export const currency = '₹';
 
 function App() {
-
   return (
     <div>
       <Router>
@@ -26,14 +29,28 @@ function App() {
           <Route path="/kids" element={<ShopCategory banner={kid_banner} category="kid" />} />
           <Route path='/product' element={<Product />}>
             <Route path=':productId' element={<Product />} />
+         
           </Route>
           <Route path="/cart" element={<Cart />} />
-          <Route path="/login" element={<LoginSignup/>} />
+          <Route path="/login" element={<LoginSignup />} />
         </Routes>
         <Footer />
       </Router>
     </div>
   );
 }
+// function App() {
+//   return (
+//     <div>
+//       <Router>
+//         <Navbar />
+//         <Routes>
+//           <Route path="/" element={<Product />} />
+//         </Routes>
+//         <Footer />
+//       </Router>
+//     </div>
+//   );
+// }
 
 export default App;
