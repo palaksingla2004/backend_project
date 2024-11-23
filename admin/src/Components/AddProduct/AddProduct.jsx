@@ -15,39 +15,66 @@ const AddProduct = () => {
     old_price: ""
   });
 
-  const AddProduct = async () => {
+  // const AddProduct = async () => {
 
-    let dataObj;
-    let product = productDetails;
+  //   let dataObj;
+  //   let product = productDetails;
 
-    let formData = new FormData();
-    formData.append('product', image);
+  //   let formData = new FormData();
+  //   formData.append('product', image);
 
-    await fetch(`${backend_url}/upload`, {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-      },
-      body: formData,
-    }).then((resp) => resp.json())
-      .then((data) => { dataObj = data });
+  //   await fetch(`${backend_url}/upload`, {
+  //     method: 'POST',
+  //     headers: {
+  //       Accept: 'application/json',
+  //     },
+  //     body: formData,
+  //   }).then((resp) => resp.json())
+  //     .then((data) => { dataObj = data });
 
-    if (dataObj.success) {
-      product.image = dataObj.image_url;
-      await fetch(`${backend_url}/addproduct`, {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(product),
-      })
-        .then((resp) => resp.json())
-        .then((data) => { data.success ? alert("Product Added") : alert("Failed") });
+  //   if (dataObj.success) {
+  //     product.image = dataObj.image_url;
+  //     await fetch(`${backend_url}/addproduct`, {
+  //       method: 'POST',
+  //       headers: {
+  //         Accept: 'application/json',
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify(product),
+  //     })
+  //       .then((resp) => resp.json())
+  //       .then((data) => { data.success ? alert("Product Added") : alert("Failed") });
 
-    }
-  }
-
+  //   }
+  // }
+  const AddProduct = ({ fetchInfo }) => {
+    const [newProduct, setNewProduct] = useState({
+      name: '',
+      old_price: '',
+      new_price: '',
+      image: '',
+      category: '',
+    });
+  
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+      try {
+        const response = await fetch(`${backend_url}/addproduct`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(newProduct),
+        });
+  
+        if (response.ok) {
+          fetchInfo(); // Refresh product list after adding a product
+          setNewProduct({ name: '', old_price: '', new_price: '', image: '', category: '' });
+        }
+      } catch (err) {
+        console.error("Error adding product:", err);
+      }
+    };
   const changeHandler = (e) => {
     setProductDetails({ ...productDetails, [e.target.name]: e.target.value });
   }
