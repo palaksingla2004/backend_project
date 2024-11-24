@@ -9,14 +9,8 @@ import women_banner from "./Components/Assets/women2.jpeg";
 import men_banner from "./Components/Assets/men.jpeg";
 import kid_banner from "./Components/Assets/kids.jpeg";
 import LoginSignup from "./Pages/LoginSignup";
-
-
-
-
-
 export const backend_url = 'http://localhost:4000'; // Ensure the correct backend URL
 export const currency = '₹';
-
 function App() {
   return (
     <div>
@@ -36,6 +30,7 @@ function App() {
         </Routes>
         <Footer />
       </Router>
+      
     </div>
   );
 }
