@@ -10,9 +10,9 @@
 .nav-logo{
     width: 55px;
 }
-.alo{
-    align-items:left;
-}
+.alo h3 {
+    margin: 0;
+  }
 .nav-profile{
     width: 75px;
 }
