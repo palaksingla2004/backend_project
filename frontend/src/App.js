@@ -34,18 +34,4 @@ function App() {
     </div>
   );
 }
-// function App() {
-//   return (
-//     <div>
-//       <Router>
-//         <Navbar />
-//         <Routes>
-//           <Route path="/" element={<Product />} />
-//         </Routes>
-//         <Footer />
-//       </Router>
-//     </div>
-//   );
-// }
-
 export default App;

@@ -162,8 +162,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 //import ProductDisplay from '../Components/ProductDisplay'; // Adjust based on actual location
-import product1 from '../Components/Assets/Dress.jpeg'; // Adjust based on actual location
-import product2 from '../Components/Assets/Headbands.jpeg'; // Adjust based on actual location
+import product1 from '../Components/Assets/1.jpeg'; // Adjust based on actual location
+import product2 from '../Components/Assets/2.jpeg'; // Adjust based on actual location
 
 const Products = () => {
   const [products, setProducts] = useState([]);

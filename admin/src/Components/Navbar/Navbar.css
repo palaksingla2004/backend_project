@@ -8,7 +8,10 @@
     background: white;
 }
 .nav-logo{
-    width: 200px;
+    width: 55px;
+}
+.alo{
+    align-items:left;
 }
 .nav-profile{
     width: 75px;

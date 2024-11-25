@@ -1,12 +1,16 @@
 import React from 'react'
 import './Navbar.css'
-import navlogo from '../Assets/nav-logo.svg'
+import navlogo from '../Assets/logooo.jpeg'
 import navprofileIcon from '../Assets/nav-profile.svg'
 
 const Navbar = () => {
   return (
     <div className='navbar'>
+      
       <img src={navlogo} className='nav-logo' alt="" />
+      <div className='alo'>
+      <h3 align="left">ALO</h3>
+      </div>
       <img src={navprofileIcon} className='nav-profile' alt="" />
     </div>
   )
