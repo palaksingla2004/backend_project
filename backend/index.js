@@ -468,6 +468,13 @@ const path = require("path");
 const cors = require("cors");
 const port = process.env.PORT || 4000;
 const fs = require('fs'); 
+const Users = require('./usermodels.js');
+const generateToken = require('./Middlewares/jwtMiddleware.js');
+const { isAdminAuthenticated } = require("./Middlewares/jwtAuthMiddleware.js");
+const cookieParser = require("cookie-parser");
+
+app.use(cookieParser());
+
 
 app.use(express.json());
 app.use(cors());
@@ -477,8 +484,6 @@ mongoose.connect("mongodb://localhost:27017/ecommercelogin")
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.error('MongoDB connection error:', err));
 
-// paste your mongoDB Connection string above with password
-// password should not contain '@' special character
 
 
   //Image Storage Engine 
@@ -530,13 +535,13 @@ const fetchuser = async (req, res, next) => {
 
 
 // Schema for creating user model
-const Users = mongoose.model("Users", {
-  name: { type: String },
-  email: { type: String, unique: true },
-  password: { type: String },
-  cartData: { type: Object },
-  date: { type: Date, default: Date.now() },
-});
+// const Users = mongoose.model("Users", {
+//   name: { type: String },
+//   email: { type: String, unique: true },
+//   password: { type: String },
+//   cartData: { type: Object },
+//   date: { type: Date, default: Date.now() },
+// });
 
 
 // Schema for creating Product
@@ -559,6 +564,83 @@ app.get("/", (req, res) => {
 });
 
 
+//for admin
+// app.post('/login1', async (req, res) => {
+//   console.log("Login");
+//   let success = false;
+//   let user = await Users.findOne({ email: req.body.email });
+//   if (user) {
+//     const passCompare = req.body.password === user.password;
+//     if (passCompare) {
+//       const data = {
+//         user: {
+//           id: user.id
+//         }
+//       }
+//       success = true;
+//       console.log(user.id);
+//       const token = jwt.sign(data, 'secret_ecom');
+//       res.json({ success, token });
+//     }
+//     else {
+//       return res.status(400).json({ success: success, errors: "please try with correct email/password" })
+//     }
+//   }
+//   else {
+//     return res.status(400).json({ success: success, errors: "please try with correct email/password" })
+//   }
+// })
+app.post('/login1', async (req, res, next) => {
+  const { email, password } = req.body;
+
+  if (!email || !password) {
+      return next(new ErrorHandler("Please provide the details", 400));
+  }
+
+  const user = await Users.findOne({ email }).select("+password");
+
+  if (!user) return next(new ErrorHandler("Invalid credentials", 400));
+
+  const passwordMatch = password === user.password; // Or await user.comparePassword(password);
+  if (!passwordMatch) {
+    return res.status(400).json({ message: "Password did not match" });
+  }
+
+  // if(role !== user.role) return next(new ErrorHandler("User with this role not found", 400));
+
+  generateToken(user, "Login Successful", 200, res);
+});
+
+app.post('/signup1', async (req, res) => {
+  console.log("Sign Up");
+  let success = false;
+  let check = await Users.findOne({ email: req.body.email });
+  if (check) {
+    return res.status(400).json({ success: success, errors: "existing user found with this email" });
+  }
+  let cart = {};
+  for (let i = 0; i < 300; i++) {
+    cart[i] = 0;
+  }
+  const user = new Users({
+    name: req.body.username,
+    email: req.body.email,
+    password: req.body.password,
+    cartData: cart,
+  });
+  await user.save();
+  const data = {
+    user: {
+      id: user.id
+    }
+  }
+
+  const token = jwt.sign(data, 'secret_ecom');
+  success = true;
+  res.json({ success, token })
+})
+
+//for user
 // Create an endpoint at ip/login for login the user and giving auth-token
 app.post('/login', async (req, res) => {
   console.log("Login");
@@ -685,7 +767,7 @@ app.post('/getcart', fetchuser, async (req, res) => {
 
 
 // Create an endpoint for adding products using admin panel
-app.post("/addproduct", async (req, res) => {
+app.post("/addproduct", isAdminAuthenticated, async (req, res) => {
   let products = await Product.find({});
   let id;
   if (products.length > 0) {
