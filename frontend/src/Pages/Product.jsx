@@ -159,62 +159,90 @@
 // };
 
 // export default Products;
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-//import ProductDisplay from '../Components/ProductDisplay'; // Adjust based on actual location
-import product1 from '../Components/Assets/1.jpeg'; // Adjust based on actual location
-import product2 from '../Components/Assets/2.jpeg'; // Adjust based on actual location
+// import React, { useEffect, useState } from 'react';
+// import axios from 'axios';
+// //import ProductDisplay from '../Components/ProductDisplay'; // Adjust based on actual location
+// import product1 from '../Components/Assets/1.jpeg'; // Adjust based on actual location
+// import product2 from '../Components/Assets/2.jpeg'; // Adjust based on actual location
 
-const Products = () => {
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+// const Products = () => {
+//   const [products, setProducts] = useState([]);
+//   const [loading, setLoading] = useState(true);
+//   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const backendUrl = process.env.REACT_APP_API_URL || 'http://localhost:4000';
-        const response = await axios.get(`${backendUrl}/allproducts`);
-        setProducts(response.data);
-      } catch (err) {
-        setError('Failed to fetch products. Please try again later.');
-        console.error('Error fetching products:', err);
-      } finally {
-        setLoading(false);
-      }
-    };
+//   useEffect(() => {
+//     const fetchProducts = async () => {
+//       try {
+//         const backendUrl = process.env.REACT_APP_API_URL || 'http://localhost:4000';
+//         const response = await axios.get(`${backendUrl}/allproducts`);
+//         setProducts(response.data);
+//       } catch (err) {
+//         setError('Failed to fetch products. Please try again later.');
+//         console.error('Error fetching products:', err);
+//       } finally {
+//         setLoading(false);
+//       }
+//     };
 
-    fetchProducts();
-  }, []);
+//     fetchProducts();
+//   }, []);
 
-  if (loading) return <p>Loading products...</p>;
-  if (error) return <p className="error-message">{error}</p>;
+//   if (loading) return <p>Loading products...</p>;
+//   if (error) return <p className="error-message">{error}</p>;
 
-  return (
+//   return (
+//     <div>
+//       <h1>Products</h1>
+//       <div className="product-grid">
+//         {products.map((product) => (
+//           <div key={product.id} className="product-card">
+//             <img
+//               src={
+//                 product.image
+//                   ? `${process.env.REACT_APP_API_URL || 'http://localhost:4000'}/images/${product.image}`
+//                   : product1 // Replace with a placeholder if needed
+//               }
+//               alt={product.name || 'Product'}
+//               onError={(e) => {
+//                 e.target.src = product2; // Fallback to a default image
+//               }}
+//             />
+//             <h2>{product.name}</h2>
+//             <p>{product.description}</p>
+//             <p>₹{product.new_price}</p>
+//           </div>
+//         ))}
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default Products;
+import React, { useContext, useEffect, useState } from 'react'
+import Breadcrums from '../Components/Breadcrums/Breadcrums'
+import ProductDisplay from '../Components/ProductDisplay/ProductDisplay'
+import DescriptionBox from '../Components/DescriptionBox/DescriptionBox'
+import RelatedProducts from '../Components/RelatedProducts/RelatedProducts'
+import { useParams } from 'react-router-dom'
+import { ShopContext } from '../Context/ShopContext'
+
+const Product = () => {
+  const {products} = useContext(ShopContext);
+  const {productId} = useParams();
+  const [product,setProduct] = useState(false);
+
+  useEffect(()=>{
+    setProduct(products.find((e)=>e.id === Number(productId)))
+  },[products,productId])
+
+  return product ? (
     <div>
-      <h1>Products</h1>
-      <div className="product-grid">
-        {products.map((product) => (
-          <div key={product.id} className="product-card">
-            <img
-              src={
-                product.image
-                  ? `${process.env.REACT_APP_API_URL || 'http://localhost:4000'}/images/${product.image}`
-                  : product1 // Replace with a placeholder if needed
-              }
-              alt={product.name || 'Product'}
-              onError={(e) => {
-                e.target.src = product2; // Fallback to a default image
-              }}
-            />
-            <h2>{product.name}</h2>
-            <p>{product.description}</p>
-            <p>₹{product.new_price}</p>
-          </div>
-        ))}
-      </div>
+      <Breadcrums product={product}/>
+      <ProductDisplay product={product}/>
+      <DescriptionBox/>
+      <RelatedProducts id={product.id} category={product.category}/>
     </div>
-  );
-};
+  ) : null
+}
 
-export default Products;
+export default Product

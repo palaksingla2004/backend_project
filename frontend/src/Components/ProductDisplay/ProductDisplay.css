@@ -36,7 +36,7 @@
     align-items: center;
     margin-top: 10px;
     gap: 5px;
-    color: #1c1c1c;
+    color: #0b0b0b;
     font-size: 14px;
 }
 .productdisplay-right-prices{
@@ -51,7 +51,7 @@
     text-decoration: line-through;
 }
 .productdisplay-right-price-new{
-    color: #ff4141;
+    color: #060606;
 }
 .productdisplay-right-size h1{
     margin-top: 30px;
@@ -63,6 +63,7 @@
     display: flex;
     margin: 20px 0px;
     gap: 15px;
+    
 }
 .productdisplay-right-sizes div{
     padding: 16px 20px;
@@ -77,7 +78,7 @@
     font-size: 16px;
     font-weight: 600;
     color: white;
-    background: #FF4141;
+    background: #0f0f0f;
     margin-bottom: 25px;
     border: none;
     outline: none;
@@ -159,3 +160,24 @@
         height: 300px;
     }
 }
+
+.size-option {
+    display: inline-block;
+    padding: 10px 15px;
+    margin: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+  }
+  
+  .size-option.selected {
+    background-color: #050505;
+    color: #fff;
+    border-color: #020202;
+  }
+  
+  .size-option:hover {
+    background-color: #8a8888;
+  }
+  
