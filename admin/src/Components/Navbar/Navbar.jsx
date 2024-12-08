@@ -22,17 +22,6 @@ const Navbar = () => {
         <h3 align="left">ALO</h3>
       </div>
 
-      {/* Login/Logout Button */}
-      <div className="nav">
-        {localStorage.getItem('auth-token') ? (
-          <button onClick={handleLogout}>Logout</button>
-        ) : (
-          <Link to='/login1' style={{ textDecoration: 'none' }}>
-            <button>Login</button>
-          </Link>
-        )}
-      </div>
-
       {/* Profile Icon */}
       <img src={navprofileIcon} className='nav-profile' alt="Profile Icon" />
     </div>
